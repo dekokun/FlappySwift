@@ -242,6 +242,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 score++
                 scoreLabelNode.text = String(score)
                 
+                // 当たったらブースト
+                moving.speed += 1
+
                 // Add a little visual feedback for the score increment
                 scoreLabelNode.runAction(SKAction.sequence([SKAction.scaleTo(1.5, duration:NSTimeInterval(0.1)), SKAction.scaleTo(1.0, duration:NSTimeInterval(0.1))]))
             } else {
