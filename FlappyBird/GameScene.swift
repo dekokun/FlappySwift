@@ -210,7 +210,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 let location = touch.locationInNode(self)
                 
                 bird.physicsBody?.velocity = CGVectorMake(0, 0)
-                bird.physicsBody?.applyImpulse(CGVectorMake(0, 30))
+                bird.physicsBody?.applyImpulse(CGVectorMake(0, 20))
                 
             }
         }else if canRestart {
