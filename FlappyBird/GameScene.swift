@@ -169,7 +169,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         pipePair.addChild(pipeUp)
         
         var contactNode = SKSpriteNode(imageNamed:"target.png")
-        contactNode.position = CGPointMake(0.0, CGFloat(Double(y)) + pipeDown.size.height - CGFloat(verticalPipeGap) + 10.0)
+        contactNode.position = CGPointMake(0.0, CGFloat(Double(y)) + pipeUp.size.height - 140)
         contactNode.physicsBody = SKPhysicsBody(rectangleOfSize: contactNode.size)
         contactNode.physicsBody?.dynamic = false
         contactNode.physicsBody?.categoryBitMask = scoreCategory
