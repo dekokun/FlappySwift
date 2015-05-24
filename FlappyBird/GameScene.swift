@@ -9,7 +9,7 @@
 import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate{
-    let verticalPipeGap = 150.0
+    let verticalPipeGap = 250.0
     
     var sensu:SKSpriteNode!
     var skyColor:SKColor!
@@ -210,7 +210,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 let location = touch.locationInNode(self)
                 
                 sensu.physicsBody?.velocity = CGVectorMake(0, 0)
-                sensu.physicsBody?.applyImpulse(CGVectorMake(0, 20))
+                sensu.physicsBody?.applyImpulse(CGVectorMake(0, 30))
                 
             }
         }else if canRestart {
