@@ -91,7 +91,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         // spawn the pipes
         let spawn = SKAction.runBlock({() in self.spawnPipes()})
-        let delay = SKAction.waitForDuration(NSTimeInterval(2.0))
+        let delay = SKAction.waitForDuration(NSTimeInterval(1.5))
         let spawnThenDelay = SKAction.sequence([spawn, delay])
         let spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
         self.runAction(spawnThenDelayForever)
@@ -198,9 +198,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         // Reset score
         score = 0
         scoreLabelNode.text = String(score)
-        
+
         // Restart animation
-        moving.speed = 1
+        moving.speed = 2
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -243,7 +243,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 scoreLabelNode.text = String(score)
                 
                 // 当たったらブースト
-                moving.speed += 1
+                moving.speed += 0.4
 
                 // Add a little visual feedback for the score increment
                 scoreLabelNode.runAction(SKAction.sequence([SKAction.scaleTo(1.5, duration:NSTimeInterval(0.1)), SKAction.scaleTo(1.0, duration:NSTimeInterval(0.1))]))
