@@ -170,13 +170,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         pipeUp.physicsBody?.contactTestBitMask = birdCategory
         pipePair.addChild(pipeUp)
         
-        var contactNode = SKSpriteNode(imageNamed:"target.png")
-        contactNode.position = CGPointMake(0.0, CGFloat(Double(y)) + pipeUp.size.height - 140)
-        contactNode.physicsBody = SKPhysicsBody(rectangleOfSize: contactNode.size)
-        contactNode.physicsBody?.dynamic = false
-        contactNode.physicsBody?.categoryBitMask = scoreCategory
-        contactNode.physicsBody?.contactTestBitMask = birdCategory
-        pipePair.addChild(contactNode)
+        var scoreTarget = SKSpriteNode(imageNamed:"target.png")
+        scoreTarget.position = CGPointMake(0.0, CGFloat(Double(y)) + pipeUp.size.height - 140)
+        scoreTarget.physicsBody = SKPhysicsBody(rectangleOfSize: scoreTarget.size)
+        scoreTarget.physicsBody?.dynamic = false
+        scoreTarget.physicsBody?.categoryBitMask = scoreCategory
+        scoreTarget.physicsBody?.contactTestBitMask = birdCategory
+        pipePair.addChild(scoreTarget)
         
         pipePair.runAction(movePipesAndRemove)
         pipes.addChild(pipePair)
