@@ -22,11 +22,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var scoreLabelNode:SKLabelNode!
     var score = NSInteger()
     var defaultSpeed = CGFloat(2.0)
+    var scoreTargets = [SKSpriteNode]()
     
     let birdCategory: UInt32 = 1 << 0
     let worldCategory: UInt32 = 1 << 1
     let pipeCategory: UInt32 = 1 << 2
-    let scoreCategory: UInt32 = 1 << 3
+    let scoreCategory: UInt32 = 1 << 20
     
     override func didMoveToView(view: SKView) {
         
@@ -174,8 +175,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         scoreTarget.position = CGPointMake(0.0, CGFloat(Double(y)) + pipeUp.size.height - 140)
         scoreTarget.physicsBody = SKPhysicsBody(rectangleOfSize: scoreTarget.size)
         scoreTarget.physicsBody?.dynamic = false
-        scoreTarget.physicsBody?.categoryBitMask = scoreCategory
+        scoreTarget.physicsBody?.categoryBitMask = scoreCategory + UInt32(scoreTargets.count)
         scoreTarget.physicsBody?.contactTestBitMask = birdCategory
+        scoreTarget.physicsBody?.collisionBitMask = worldCategory
+        scoreTargets.append(scoreTarget)
         pipePair.addChild(scoreTarget)
         
         pipePair.runAction(movePipesAndRemove)
@@ -240,6 +243,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     func didBeginContact(contact: SKPhysicsContact) {
         if moving.speed > 0 {
             if ( contact.bodyA.categoryBitMask & scoreCategory ) == scoreCategory || ( contact.bodyB.categoryBitMask & scoreCategory ) == scoreCategory {
+                let scoreTargetIndex =
+                    (contact.bodyA.categoryBitMask & scoreCategory) == scoreCategory
+                    ? contact.bodyA.categoryBitMask - scoreCategory
+                    : contact.bodyB.categoryBitMask - scoreCategory
+                let hittedTarget = scoreTargets[Int(scoreTargetIndex)]
+                hittedTarget.physicsBody?.dynamic = true
+                hittedTarget.physicsBody?.allowsRotation = false
+                hittedTarget.runAction(  SKAction.rotateByAngle(CGFloat(M_PI) * CGFloat(hittedTarget.position.y) * 0.01, duration:1), completion:{hittedTarget.speed = 0 })
+
                 // Bird has contact with score entity
                 score++
                 scoreLabelNode.text = String(score)
