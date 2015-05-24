@@ -21,6 +21,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var canRestart = Bool()
     var scoreLabelNode:SKLabelNode!
     var score = NSInteger()
+    var defaultSpeed = CGFloat(2.0)
     
     let birdCategory: UInt32 = 1 << 0
     let worldCategory: UInt32 = 1 << 1
@@ -40,6 +41,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.backgroundColor = skyColor
         
         moving = SKNode()
+        moving.speed = defaultSpeed
         self.addChild(moving)
         pipes = SKNode()
         moving.addChild(pipes)
@@ -200,7 +202,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         scoreLabelNode.text = String(score)
 
         // Restart animation
-        moving.speed = 2
+        moving.speed = defaultSpeed
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
